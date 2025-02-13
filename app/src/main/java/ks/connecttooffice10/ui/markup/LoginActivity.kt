@@ -1,5 +1,7 @@
 package ks.connecttooffice10.ui.markup
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -41,7 +43,8 @@ class LoginActivity : ComponentActivity() {
             ConnectToOffice10Theme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     LoginScreen(
-                        modifier = Modifier.padding(innerPadding)
+                        modifier = Modifier.padding(innerPadding),
+                        context = this
                     )
                 }
             }
@@ -49,8 +52,14 @@ class LoginActivity : ComponentActivity() {
     }
 }
 
+@Preview(showBackground = true)
 @Composable
-fun LoginScreen(modifier: Modifier = Modifier) {
+fun Preview(modifier: Modifier = Modifier) {
+    LoginScreen(modifier = Modifier, context = androidx.compose.ui.platform.LocalContext.current)
+}
+
+@Composable
+fun LoginScreen(modifier: Modifier = Modifier, context: Context) {
     var portal by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -99,16 +108,13 @@ fun LoginScreen(modifier: Modifier = Modifier) {
         Spacer(modifier = Modifier.height(32.dp))
 
         Button(
-            onClick = { /* Handle login */ },
+            onClick = {
+                val intent = Intent(context, MainActivity::class.java)
+                context.startActivity(intent)
+            },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("Login")
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun Preview(modifier: Modifier = Modifier) {
-    LoginScreen()
 }
