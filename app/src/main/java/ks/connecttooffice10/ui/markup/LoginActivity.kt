@@ -1,4 +1,4 @@
-package ks.connecttooffice10.ui.theme
+package ks.connecttooffice10.ui.markup
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -31,6 +31,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import ks.connecttooffice10.ui.theme.ConnectToOffice10Theme
 
 class LoginActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

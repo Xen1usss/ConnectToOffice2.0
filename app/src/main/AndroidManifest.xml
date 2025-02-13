@@ -13,7 +13,7 @@
         android:theme="@style/Theme.ConnectToOffice10"
         tools:targetApi="31">
         <activity
-            android:name=".ui.theme.LoginActivity"
+            android:name=".ui.markup.LoginActivity"
             android:exported="true"
             android:label="@string/title_activity_login"
             android:theme="@style/Theme.ConnectToOffice10">
@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.markup.MainActivity"
             android:exported="false"
             android:label="@string/app_name"
             android:theme="@style/Theme.ConnectToOffice10" />
