@@ -90,49 +90,39 @@ fun BottomNavigationBar(navController: NavController) {
 @Composable
 fun DocumentsScreen() {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(text = "Documents", style = androidx.compose.material3.MaterialTheme.typography.headlineMedium)
+        Text(
+            text = "Documents",
+            style = androidx.compose.material3.MaterialTheme.typography.headlineMedium
+        )
     }
 }
 
 @Composable
 fun RoomsScreen() {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(text = "Rooms", style = androidx.compose.material3.MaterialTheme.typography.headlineMedium)
+        Text(
+            text = "Rooms",
+            style = androidx.compose.material3.MaterialTheme.typography.headlineMedium
+        )
     }
 }
 
 @Composable
 fun TrashScreen() {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(text = "Trash", style = androidx.compose.material3.MaterialTheme.typography.headlineMedium)
+        Text(
+            text = "Trash",
+            style = androidx.compose.material3.MaterialTheme.typography.headlineMedium
+        )
     }
 }
 
 @Composable
 fun ProfileScreen() {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(text = "Profile", style = androidx.compose.material3.MaterialTheme.typography.headlineMedium)
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Box(
-        modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    )
-    {
         Text(
-            text = "Hello $name!",
-            modifier = modifier
+            text = "Profile",
+            style = androidx.compose.material3.MaterialTheme.typography.headlineMedium
         )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    ConnectToOffice10Theme {
-        Greeting("Android")
     }
 }

@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import java.util.regex.Pattern
 
-class LoginViewModel: ViewModel() {
+class LoginViewModel : ViewModel() {
 
     // Поля ввода
     private val _portal = mutableStateOf("")
@@ -30,8 +30,9 @@ class LoginViewModel: ViewModel() {
     // Устанавливаем значения и валидируем
     fun onPortalChanged(newPortal: String) {
         _portal.value = newPortal
-        _portalError.value = if (newPortal.startsWith("https://") && newPortal.endsWith(".onlyoffice.com/"))
-            null else "Некорректный адрес портала"
+        _portalError.value =
+            if (newPortal.startsWith("https://") && newPortal.endsWith(".onlyoffice.com/"))
+                null else "Некорректный адрес портала"
     }
 
     fun onEmailChanged(newEmail: String) {
@@ -41,7 +42,8 @@ class LoginViewModel: ViewModel() {
 
     fun onPasswordChanged(newPassword: String) {
         _password.value = newPassword
-        _passwordError.value = if (isValidPassword(newPassword)) null else "Пароль должен быть минимум 8 символов, содержать цифры и буквы"
+        _passwordError.value =
+            if (isValidPassword(newPassword)) null else "Пароль должен быть минимум 8 символов, содержать цифры и буквы"
     }
 
     // Проверка email

@@ -57,7 +57,11 @@ fun Preview(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun LoginScreen(modifier: Modifier = Modifier, context: Context, viewModel: LoginViewModel = viewModel()) {
+fun LoginScreen(
+    modifier: Modifier = Modifier,
+    context: Context,
+    viewModel: LoginViewModel = viewModel()
+) {
     val portal by viewModel.portal
     val email by viewModel.email
     val password by viewModel.password
