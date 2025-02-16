@@ -24,15 +24,13 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import ks.connecttooffice10.ui.theme.ConnectToOffice10Theme
 
 class LoginActivity : ComponentActivity() {
@@ -59,10 +57,14 @@ fun Preview(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun LoginScreen(modifier: Modifier = Modifier, context: Context) {
-    var portal by remember { mutableStateOf("") }
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
+fun LoginScreen(modifier: Modifier = Modifier, context: Context, viewModel: LoginViewModel = viewModel()) {
+    val portal by viewModel.portal
+    val email by viewModel.email
+    val password by viewModel.password
+
+    val portalError by viewModel.portalError
+    val emailError by viewModel.emailError
+    val passwordError by viewModel.passwordError
 
     Column(
         modifier = Modifier
@@ -77,7 +79,7 @@ fun LoginScreen(modifier: Modifier = Modifier, context: Context) {
 
         OutlinedTextField(
             value = portal,
-            onValueChange = { portal = it },
+            onValueChange = { viewModel.onPortalChanged(it) },
             label = { Text("Portal") },
             leadingIcon = { Icon(Icons.Default.Person, contentDescription = null) },
             modifier = Modifier.fillMaxWidth()
@@ -87,22 +89,24 @@ fun LoginScreen(modifier: Modifier = Modifier, context: Context) {
 
         OutlinedTextField(
             value = email,
-            onValueChange = { email = it },
+            onValueChange = { viewModel.onEmailChanged(it) },
             label = { Text("E-mail") },
             leadingIcon = { Icon(Icons.Default.Person, contentDescription = null) },
             modifier = Modifier.fillMaxWidth(),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+            isError = emailError != null
         )
 
         Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedTextField(
             value = password,
-            onValueChange = { password = it },
+            onValueChange = { viewModel.onPasswordChanged(it) },
             label = { Text("Password") },
             leadingIcon = { Icon(Icons.Default.Person, contentDescription = null) },
             visualTransformation = PasswordVisualTransformation(),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            isError = passwordError != null
         )
 
         Spacer(modifier = Modifier.height(32.dp))
@@ -112,7 +116,8 @@ fun LoginScreen(modifier: Modifier = Modifier, context: Context) {
                 val intent = Intent(context, MainActivity::class.java)
                 context.startActivity(intent)
             },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            enabled = portalError == null && emailError == null && passwordError == null
         ) {
             Text("Login")
         }
