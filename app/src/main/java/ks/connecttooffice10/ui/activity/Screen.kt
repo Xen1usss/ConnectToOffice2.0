@@ -1,4 +1,4 @@
-package ks.connecttooffice10.ui.markup
+package ks.connecttooffice10.ui.activity
 
 sealed class Screen(val route: String) {
     object Documents : Screen("documents")

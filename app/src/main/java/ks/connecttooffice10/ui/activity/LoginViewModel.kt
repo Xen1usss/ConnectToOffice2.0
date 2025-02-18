@@ -1,4 +1,4 @@
-package ks.connecttooffice10.ui.markup
+package ks.connecttooffice10.ui.activity
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf

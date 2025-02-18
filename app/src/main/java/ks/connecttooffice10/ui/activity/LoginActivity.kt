@@ -1,4 +1,4 @@
-package ks.connecttooffice10.ui.markup
+package ks.connecttooffice10.ui.activity
 
 import android.content.Context
 import android.content.Intent

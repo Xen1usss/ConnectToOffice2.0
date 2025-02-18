@@ -1,4 +1,4 @@
-package ks.connecttooffice10.ui.markup
+package ks.connecttooffice10.ui.activity
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -7,15 +7,11 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.GenericShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -24,7 +20,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -33,6 +28,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import ks.connecttooffice10.ui.screen.DocumentsScreen
+import ks.connecttooffice10.ui.screen.ProfileScreen
+import ks.connecttooffice10.ui.screen.RoomsScreen
+import ks.connecttooffice10.ui.screen.TrashScreen
 import ks.connecttooffice10.ui.theme.ConnectToOffice10Theme
 
 
@@ -121,44 +120,4 @@ val TriangleShape = GenericShape { size, _ ->
     lineTo(0f, size.height)
     lineTo(size.width, size.height)
     close()
-}
-
-@Composable
-fun DocumentsScreen() {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(
-            text = "Documents",
-            style = androidx.compose.material3.MaterialTheme.typography.headlineMedium
-        )
-    }
-}
-
-@Composable
-fun RoomsScreen() {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(
-            text = "Rooms",
-            style = androidx.compose.material3.MaterialTheme.typography.headlineMedium
-        )
-    }
-}
-
-@Composable
-fun TrashScreen() {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(
-            text = "Trash",
-            style = androidx.compose.material3.MaterialTheme.typography.headlineMedium
-        )
-    }
-}
-
-@Composable
-fun ProfileScreen() {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(
-            text = "Profile",
-            style = androidx.compose.material3.MaterialTheme.typography.headlineMedium
-        )
-    }
 }
