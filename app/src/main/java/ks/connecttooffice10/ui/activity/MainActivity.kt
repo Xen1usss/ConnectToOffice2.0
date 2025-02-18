@@ -11,7 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import ks.connecttooffice10.ui.screen.BottomNavigationBar
+import ks.connecttooffice10.ui.navigation.Screen
+import ks.connecttooffice10.ui.components.BottomNavigationBar
 import ks.connecttooffice10.ui.screen.DocumentsScreen
 import ks.connecttooffice10.ui.screen.ProfileScreen
 import ks.connecttooffice10.ui.screen.RoomsScreen

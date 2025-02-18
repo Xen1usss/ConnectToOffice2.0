@@ -1,4 +1,4 @@
-package ks.connecttooffice10.ui.screen
+package ks.connecttooffice10.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -18,7 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import ks.connecttooffice10.ui.activity.Screen
+import ks.connecttooffice10.ui.navigation.Screen
 
 @Composable
 fun BottomNavigationBar(navController: NavController) {
