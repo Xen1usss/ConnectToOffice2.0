@@ -1,5 +1,8 @@
 package ks.connecttooffice10.ui.screen
 
+import android.content.Context
+import android.content.Intent
+import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -13,9 +16,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import ks.connecttooffice10.ui.activity.LoginActivity
 
 @Composable
-fun ProfileScreen() {
+fun ProfileScreen(context: Context) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -57,7 +61,10 @@ fun ProfileScreen() {
         Spacer(modifier = Modifier.height(32.dp))
         // Кнопка выхода
         Button(
-            onClick = { /* TODO: добавить логику выхода */ },
+            onClick = {
+                val intent = Intent(context, LoginActivity::class.java)
+                context.startActivity(intent)
+            },
             shape = CircleShape,
             colors = ButtonDefaults.buttonColors(
                 containerColor = MaterialTheme.colorScheme.primary

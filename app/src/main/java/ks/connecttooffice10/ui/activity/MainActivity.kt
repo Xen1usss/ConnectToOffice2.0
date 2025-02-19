@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -40,7 +41,10 @@ class MainActivity : ComponentActivity() {
                         composable(Screen.Documents.route) { DocumentsScreen() }
                         composable(Screen.Rooms.route) { RoomsScreen() }
                         composable(Screen.Trash.route) { TrashScreen() }
-                        composable(Screen.Profile.route) { ProfileScreen() }
+                        composable(Screen.Profile.route) {
+                            val context = LocalContext.current
+                            ProfileScreen(context = context)
+                        }
                     }
                 }
             }
