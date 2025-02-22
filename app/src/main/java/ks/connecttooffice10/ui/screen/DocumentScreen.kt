@@ -6,11 +6,14 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LargeTopAppBar
@@ -20,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 
 @Composable
 @Preview
@@ -44,19 +48,23 @@ fun DocumentsScreen() {
                 .fillMaxSize(), contentAlignment = Alignment.Center
         ) {
             val files = listOf("File 1", "File 2", "File 3", "File 4", "File 5")
-            DefaultList(files)
+            DocumentsList(files)
         }
     }
 }
 
 @Composable
-fun DefaultList(files: List<String>) {
+fun DocumentsList(files: List<String>) {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
     ) {
-        items(files) { file: String ->
-            FileItem(file)
+        items(files) { fileName: String ->
+            FileItem(fileName, ItemsType.FILE)
+            HorizontalDivider(
+                thickness = 1.dp,
+                modifier = Modifier.padding(horizontal = 16.dp)
+            )
         }
     }
 }

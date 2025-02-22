@@ -29,7 +29,7 @@ fun FileItem(
 ) {
     Row(
         modifier = Modifier
-            .padding(16.dp)
+            .padding(horizontal = 16.dp, vertical = 8.dp)
             .fillMaxWidth(),
     ) {
         FileOrRoomOrFolderListItemIcon(listItemType)
@@ -55,6 +55,8 @@ private fun FileOrRoomOrFolderListItemIcon(
         contentAlignment = Alignment.Center
     ) {
         Icon(
+            modifier = Modifier
+                .size(22.dp),
             tint = Color.White,
             painter = painterResource(listItemType.iconResId),
             contentDescription = null,
