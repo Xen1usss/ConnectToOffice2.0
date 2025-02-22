@@ -2,7 +2,6 @@ package ks.connecttooffice10.ui.screen
 
 import android.content.Context
 import android.content.Intent
-import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
