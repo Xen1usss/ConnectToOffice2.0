@@ -2,6 +2,7 @@ package ks.connecttooffice10.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import ks.connecttooffice10.data.MockLoadDocumentsUseCase
@@ -10,6 +11,7 @@ import ks.connecttooffice10.ui.mapper.MapperDomainToUi
 import ks.connecttooffice10.ui.model.FileUiModel
 import javax.inject.Inject
 
+@HiltViewModel
 class DocumentsViewModel @Inject constructor(
     private val mockLoadDocumentsUseCase: MockLoadDocumentsUseCase,
     private val mapper: MapperDomainToUi
