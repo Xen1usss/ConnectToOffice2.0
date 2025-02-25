@@ -11,7 +11,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -19,15 +18,27 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import ks.connecttooffice10.ui.model.FileUiModel
+import ks.connecttooffice10.ui.theme.ConnectToOffice10Theme
+import ks.connecttooffice10.ui.viewmodel.DocumentsViewModel
 
 @Composable
-@Preview
 fun DocumentsScreen() {
+    val viewModel: DocumentsViewModel = viewModel()
+    val dataList: State<List<FileUiModel>> = viewModel.documentsListFlow.collectAsState(emptyList())
+    DocumentsScreenContent(dataList.value)
+}
+
+@Composable
+fun DocumentsScreenContent(filesList: List<FileUiModel>) {
     Column {
         LargeTopAppBar(
             title = {
@@ -47,20 +58,19 @@ fun DocumentsScreen() {
                 .background(Color.White)
                 .fillMaxSize(), contentAlignment = Alignment.Center
         ) {
-            val files = listOf("File 1", "File 2", "File 3", "File 4", "File 5")
-            DocumentsList(files)
+            DocumentsList(filesList)
         }
     }
 }
 
 @Composable
-fun DocumentsList(files: List<String>) {
+fun DocumentsList(files: List<FileUiModel>) {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
     ) {
-        items(files) { fileName: String ->
-            FileItem(fileName, ItemsType.FILE)
+        items(files) { file ->
+            FileItem(fileName = file.fileName, fileType = file.fileType)
             HorizontalDivider(
                 thickness = 1.dp,
                 modifier = Modifier.padding(horizontal = 16.dp)
@@ -69,3 +79,15 @@ fun DocumentsList(files: List<String>) {
     }
 }
 
+@Composable
+@Preview(showBackground = true)
+private fun PreviewScreen() {
+    ConnectToOffice10Theme {
+        val mockFiles = listOf(
+            FileUiModel("Document", FileItemType.FILE, "1"),
+            FileUiModel("Room", FileItemType.ROOM, "2"),
+            FileUiModel("Folder", FileItemType.FOLDER, "3")
+        )
+        DocumentsScreenContent(mockFiles)
+    }
+}

@@ -25,14 +25,14 @@ import ks.connecttooffice10.ui.theme.ConnectToOffice10Theme
 @Composable
 fun FileItem(
     fileName: String,
-    listItemType: ItemsType
+    fileType: FileItemType
 ) {
     Row(
         modifier = Modifier
             .padding(horizontal = 16.dp, vertical = 8.dp)
             .fillMaxWidth(),
     ) {
-        FileOrRoomOrFolderListItemIcon(listItemType)
+        FileOrRoomOrFolderListItemIcon(fileType)
         Text(
             modifier = Modifier
                 .padding(start = 16.dp)
@@ -45,7 +45,7 @@ fun FileItem(
 
 @Composable
 private fun FileOrRoomOrFolderListItemIcon(
-    listItemType: ItemsType
+    listItemType: FileItemType
 ) {
     Box(
         modifier = Modifier
@@ -68,7 +68,7 @@ private fun FileOrRoomOrFolderListItemIcon(
 @Preview(showBackground = true)
 private fun PreviewFileOrRoomOrFolderListItemIcon() {
     ConnectToOffice10Theme {
-        FileOrRoomOrFolderListItemIcon(ItemsType.FILE)
+        FileOrRoomOrFolderListItemIcon(FileItemType.FILE)
     }
 }
 
@@ -76,10 +76,10 @@ private fun PreviewFileOrRoomOrFolderListItemIcon() {
 @Preview(showBackground = true)
 fun PreviewFile() {
     ConnectToOffice10Theme {
-        FileItem("Test.docx", ItemsType.FILE)
+        FileItem("Test.docx", FileItemType.FILE)
     }
 }
 
-enum class ItemsType(@DrawableRes val iconResId: Int) {
+enum class FileItemType(@DrawableRes val iconResId: Int) {
     FILE(R.drawable.ic_folder_open), FOLDER(R.drawable.ic_folder_open), ROOM(R.drawable.ic_folder_open)
 }
