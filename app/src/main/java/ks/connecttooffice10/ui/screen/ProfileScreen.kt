@@ -42,12 +42,12 @@ fun ProfileScreen(context: Context) {
             )
         }
         Spacer(modifier = Modifier.height(16.dp))
-        // Имя пользователя
+
         Text(
             text = "User Name",
             style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold)
         )
-        // Email пользователя
+
         Text(
             text = "E-mail",
             style = MaterialTheme.typography.labelMedium,
@@ -58,7 +58,7 @@ fun ProfileScreen(context: Context) {
             style = MaterialTheme.typography.bodyMedium
         )
         Spacer(modifier = Modifier.height(32.dp))
-        // Кнопка выхода
+
         Button(
             onClick = {
                 val intent = Intent(context, LoginActivity::class.java)

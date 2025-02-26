@@ -1,6 +1,5 @@
 package ks.connecttooffice10.ui.screen
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -19,7 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import ks.connecttooffice10.R
+import ks.connecttooffice10.ui.model.FileItemType
 import ks.connecttooffice10.ui.theme.ConnectToOffice10Theme
 
 @Composable
@@ -80,6 +79,3 @@ fun PreviewFile() {
     }
 }
 
-enum class FileItemType(@DrawableRes val iconResId: Int) {
-    FILE(R.drawable.ic_folder_open), FOLDER(R.drawable.ic_folder_open), ROOM(R.drawable.ic_folder_open)
-}

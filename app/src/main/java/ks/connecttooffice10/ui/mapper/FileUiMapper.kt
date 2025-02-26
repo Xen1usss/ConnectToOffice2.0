@@ -1,13 +1,13 @@
 package ks.connecttooffice10.ui.mapper
 
-import ks.connecttooffice10.domain.FileDomainModel
+import ks.connecttooffice10.domain.FileModel
 import ks.connecttooffice10.ui.model.FileUiModel
-import ks.connecttooffice10.ui.screen.FileItemType
+import ks.connecttooffice10.ui.model.FileItemType
 import javax.inject.Inject
 
-class MapperDomainToUi @Inject constructor(){
+class FileUiMapper @Inject constructor(){
 
-    fun toUiModel(fileDomainModel: FileDomainModel): FileUiModel {
+    fun toUiModel(fileDomainModel: FileModel): FileUiModel {
         return FileUiModel(
             fileName = fileDomainModel.name,
             fileType = when (fileDomainModel.type) {

@@ -26,6 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import ks.connecttooffice10.ui.model.FileItemType
 import ks.connecttooffice10.ui.model.FileUiModel
 import ks.connecttooffice10.ui.theme.ConnectToOffice10Theme
 import ks.connecttooffice10.ui.viewmodel.DocumentsViewModel

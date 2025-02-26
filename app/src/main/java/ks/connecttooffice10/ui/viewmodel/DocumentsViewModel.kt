@@ -5,16 +5,16 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
-import ks.connecttooffice10.data.MockLoadDocumentsUseCase
-import ks.connecttooffice10.domain.FileDomainModel
-import ks.connecttooffice10.ui.mapper.MapperDomainToUi
+import ks.connecttooffice10.data.LoadDocumentsUseCase
+import ks.connecttooffice10.domain.FileModel
+import ks.connecttooffice10.ui.mapper.FileUiMapper
 import ks.connecttooffice10.ui.model.FileUiModel
 import javax.inject.Inject
 
 @HiltViewModel
 class DocumentsViewModel @Inject constructor(
-    private val mockLoadDocumentsUseCase: MockLoadDocumentsUseCase,
-    private val mapper: MapperDomainToUi
+    private val loadDocumentsUseCase: LoadDocumentsUseCase,
+    private val mapper: FileUiMapper
 ) : ViewModel() {
 
     // Поток для хранения списка UI-моделей
@@ -26,10 +26,10 @@ class DocumentsViewModel @Inject constructor(
 
     private fun addDocument() {
         viewModelScope.launch {
-            val dataModels = mockLoadDocumentsUseCase()
+            val dataModels = loadDocumentsUseCase()
 
             val domainModels = dataModels.map { dataModel ->
-                FileDomainModel(
+                FileModel(
                     name = dataModel.name,
                     type = dataModel.type,
                     id = dataModel.id
