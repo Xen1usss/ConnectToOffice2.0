@@ -25,14 +25,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import ks.connecttooffice10.ui.model.FileUiModel
 import ks.connecttooffice10.ui.theme.ConnectToOffice10Theme
 import ks.connecttooffice10.ui.viewmodel.DocumentsViewModel
 
 @Composable
 fun DocumentsScreen() {
-    val viewModel: DocumentsViewModel = viewModel()
+    val viewModel: DocumentsViewModel = hiltViewModel()
     val dataList: State<List<FileUiModel>> = viewModel.documentsListFlow.collectAsState(emptyList())
     DocumentsScreenContent(dataList.value)
 }
