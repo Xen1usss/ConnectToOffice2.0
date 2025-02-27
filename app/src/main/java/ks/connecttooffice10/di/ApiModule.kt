@@ -4,8 +4,8 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import ks.connecttooffice10.data.LoadDocumentsUseCase
-import ks.connecttooffice10.data.MockLoadDocumentsUseCase
+import ks.connecttooffice10.domain.LoadDocumentsUseCase
+import ks.connecttooffice10.domain.MockLoadDocumentsUseCase
 
 @Module
 @InstallIn(SingletonComponent::class)

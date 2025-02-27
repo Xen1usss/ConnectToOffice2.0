@@ -1,7 +1,9 @@
-package ks.connecttooffice10.data
+package ks.connecttooffice10.domain
+
+import ks.connecttooffice10.data.FileDataModel
 
 interface LoadDocumentsUseCase {
-    suspend operator fun invoke(): List<FileDataModel>
+    suspend operator fun invoke(): List<FileModel>
 }
 
 // create data class for domain model

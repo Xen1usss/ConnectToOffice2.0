@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -26,6 +27,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import ks.connecttooffice10.ui.model.DocumentsScreenState
 import ks.connecttooffice10.ui.model.FileItemType
 import ks.connecttooffice10.ui.model.FileUiModel
 import ks.connecttooffice10.ui.theme.ConnectToOffice10Theme
@@ -34,25 +36,37 @@ import ks.connecttooffice10.ui.viewmodel.DocumentsViewModel
 @Composable
 fun DocumentsScreen() {
     val viewModel: DocumentsViewModel = hiltViewModel()
-    val dataList: State<List<FileUiModel>> = viewModel.documentsListFlow.collectAsState(emptyList())
-    DocumentsScreenContent(dataList.value)
+    val documentsScreenStateFlow = viewModel.state
+    val state: State<DocumentsScreenState> = documentsScreenStateFlow.collectAsState(DocumentsScreenState.Loading)
+    when (val actualState = state.value) {
+        DocumentsScreenState.Loading -> LoadingState()
+        is DocumentsScreenState.Success -> SuccessState(actualState)
+    }
 }
 
 @Composable
-fun DocumentsScreenContent(filesList: List<FileUiModel>) {
+fun SuccessState(successState: DocumentsScreenState.Success) {
+    val (documentsList, title, isBackEnabled) = successState
+    DocumentsScreenContent(documentsList, title, isBackEnabled)
+}
+
+@Composable
+fun DocumentsScreenContent(filesList: List<FileUiModel>, title: String, isBackEnabled: Boolean) {
     Column {
+        val navigationIcon = @Composable {
+            IconButton(onClick = { /* do something */ }) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                    contentDescription = "Localized description"
+                )
+            }
+        }
+        val noNavigationIcon = @Composable {}
         LargeTopAppBar(
             title = {
-                Text("Large Top App Bar")
+                Text(title)
             },
-            navigationIcon = {
-                IconButton(onClick = { /* do something */ }) {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = "Localized description"
-                    )
-                }
-            },
+            navigationIcon = if (isBackEnabled) navigationIcon else noNavigationIcon,
         )
         Box(
             modifier = Modifier
@@ -89,6 +103,20 @@ private fun PreviewScreen() {
             FileUiModel("Room", FileItemType.ROOM, "2"),
             FileUiModel("Folder", FileItemType.FOLDER, "3")
         )
-        DocumentsScreenContent(mockFiles)
+        DocumentsScreenContent(mockFiles, "documnets title", false)
+    }
+}
+
+
+@Composable
+@Preview(showBackground = true)
+fun LoadingState() {
+    Box(
+        modifier = Modifier
+            .fillMaxSize(),
+        contentAlignment = Alignment.Center
+
+    ) {
+        CircularProgressIndicator()
     }
 }
