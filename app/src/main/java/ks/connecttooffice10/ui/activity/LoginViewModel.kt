@@ -27,7 +27,6 @@ class LoginViewModel : ViewModel() {
     private val _passwordError = mutableStateOf<String?>(null)
     val passwordError: State<String?> = _passwordError
 
-    // Устанавливаем значения и валидируем
     fun onPortalChanged(newPortal: String) {
         _portal.value = newPortal
         _portalError.value =
@@ -46,7 +45,6 @@ class LoginViewModel : ViewModel() {
             if (isValidPassword(newPassword)) null else "Пароль должен быть минимум 8 символов, содержать цифры и буквы"
     }
 
-    // Проверка email
     private fun isValidEmail(email: String): Boolean {
         val emailPattern = Pattern.compile(
             "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$"
@@ -54,7 +52,6 @@ class LoginViewModel : ViewModel() {
         return emailPattern.matcher(email).matches()
     }
 
-    // Проверка пароля
     private fun isValidPassword(password: String): Boolean {
         return password.length >= 8 && password.any { it.isDigit() } && password.any { it.isLetter() }
     }
