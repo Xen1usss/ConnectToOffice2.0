@@ -8,6 +8,7 @@ import kotlinx.coroutines.launch
 import ks.connecttooffice10.domain.LoadDocumentsUseCase
 import ks.connecttooffice10.ui.mapper.FileUiMapper
 import ks.connecttooffice10.ui.model.DocumentsScreenState
+import ks.connecttooffice10.ui.model.FileUiModel
 import javax.inject.Inject
 
 @HiltViewModel
@@ -32,5 +33,9 @@ class DocumentsViewModel @Inject constructor(
                 isBackEnabled = false
             )
         }
+    }
+
+    fun onFileClicked(file: FileUiModel) {
+        println("File clicked: ${file.fileName}, ID: ${file.id}")
     }
 }

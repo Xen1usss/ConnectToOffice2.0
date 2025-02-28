@@ -3,9 +3,11 @@
 package ks.connecttooffice10.ui.screen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -27,6 +29,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import ks.connecttooffice10.ui.model.DocumentsScreenState
 import ks.connecttooffice10.ui.model.FileItemType
 import ks.connecttooffice10.ui.model.FileUiModel
@@ -51,7 +54,12 @@ fun SuccessState(successState: DocumentsScreenState.Success) {
 }
 
 @Composable
-fun DocumentsScreenContent(filesList: List<FileUiModel>, title: String, isBackEnabled: Boolean) {
+fun DocumentsScreenContent(
+    filesList: List<FileUiModel>,
+    title: String,
+    isBackEnabled: Boolean,
+    viewModel: DocumentsViewModel = hiltViewModel() // получаем viewModel
+) {
     Column {
         val navigationIcon = @Composable {
             IconButton(onClick = { /* do something */ }) {
@@ -73,19 +81,31 @@ fun DocumentsScreenContent(filesList: List<FileUiModel>, title: String, isBackEn
                 .background(Color.White)
                 .fillMaxSize(), contentAlignment = Alignment.Center
         ) {
-            DocumentsList(filesList)
+            DocumentsList(
+                files = filesList,
+                onFileClick = { file -> viewModel.onFileClicked(file)} // передача колбэка
+            )
         }
     }
 }
 
 @Composable
-fun DocumentsList(files: List<FileUiModel>) {
+fun DocumentsList(
+    files: List<FileUiModel>,
+    onFileClick: (FileUiModel) -> Unit // колбэк для обработки нажатия
+) {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
     ) {
         items(files) { file ->
+            Box(
+                modifier = Modifier
+                    .clickable { onFileClick(file) } // вызов колбэка при нажатии
+                    .fillMaxWidth()
+            ) {
             FileItem(fileName = file.fileName, fileType = file.fileType)
+            }
             HorizontalDivider(
                 thickness = 1.dp,
                 modifier = Modifier.padding(horizontal = 16.dp)
@@ -115,7 +135,6 @@ fun LoadingState() {
         modifier = Modifier
             .fillMaxSize(),
         contentAlignment = Alignment.Center
-
     ) {
         CircularProgressIndicator()
     }
