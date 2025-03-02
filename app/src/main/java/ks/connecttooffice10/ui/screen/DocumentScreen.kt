@@ -2,6 +2,7 @@
 
 package ks.connecttooffice10.ui.screen
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -29,7 +30,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import dagger.hilt.android.lifecycle.HiltViewModel
+import ks.connecttooffice10.domain.LoadDocumentsUseCase
+import ks.connecttooffice10.domain.MockLoadDocumentsUseCase
+import ks.connecttooffice10.ui.mapper.FileUiMapper
 import ks.connecttooffice10.ui.model.DocumentsScreenState
 import ks.connecttooffice10.ui.model.FileItemType
 import ks.connecttooffice10.ui.model.FileUiModel
@@ -41,16 +44,41 @@ fun DocumentsScreen() {
     val viewModel: DocumentsViewModel = hiltViewModel()
     val documentsScreenStateFlow = viewModel.state
     val state: State<DocumentsScreenState> = documentsScreenStateFlow.collectAsState(DocumentsScreenState.Loading)
+    val onBackLambdda: () -> Unit = { viewModel.onBackClicked() }
+    val onFileClicked: (FileUiModel) -> Unit = { fileModel ->  viewModel.onFileClicked(fileModel)}
     when (val actualState = state.value) {
         DocumentsScreenState.Loading -> LoadingState()
-        is DocumentsScreenState.Success -> SuccessState(actualState)
+        is DocumentsScreenState.Success -> SuccessState(
+            actualState,
+            onBackLambdda,
+            onFileClicked
+        )
     }
 }
 
+
 @Composable
-fun SuccessState(successState: DocumentsScreenState.Success) {
+fun SuccessState(
+    successState: DocumentsScreenState.Success,
+    onBackClicked: () -> Unit,
+    onFileClicked: (FileUiModel) -> Unit,
+) {
     val (documentsList, title, isBackEnabled) = successState
-    DocumentsScreenContent(documentsList, title, isBackEnabled)
+
+    // Обработка нажатия кнопки "Назад"
+    if (isBackEnabled) {
+        BackHandler {
+            onBackClicked()
+        }
+    }
+
+    DocumentsScreenContent(
+        filesList = documentsList,
+        title = title,
+        isBackEnabled = isBackEnabled,
+        onBack = onBackClicked,
+        onFileClick = onFileClicked
+    )
 }
 
 @Composable
@@ -58,11 +86,12 @@ fun DocumentsScreenContent(
     filesList: List<FileUiModel>,
     title: String,
     isBackEnabled: Boolean,
-    viewModel: DocumentsViewModel = hiltViewModel() // получаем viewModel
+    onBack: () -> Unit,
+    onFileClick: (FileUiModel) -> Unit,
 ) {
     Column {
         val navigationIcon = @Composable {
-            IconButton(onClick = { /* do something */ }) {
+            IconButton(onClick = { onBack() }) { // Обработка нажатия кнопки "Назад"
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = "Localized description"
@@ -83,7 +112,7 @@ fun DocumentsScreenContent(
         ) {
             DocumentsList(
                 files = filesList,
-                onFileClick = { file -> viewModel.onFileClicked(file)} // передача колбэка
+                onFileClick = { file -> onFileClick(file) } // передача колбэка
             )
         }
     }
@@ -117,13 +146,19 @@ fun DocumentsList(
 @Composable
 @Preview(showBackground = true)
 private fun PreviewScreen() {
+    val mockFiles = listOf(
+        FileUiModel("Document", FileItemType.FILE, "1"),
+        FileUiModel("Room", FileItemType.ROOM, "2"),
+        FileUiModel("Folder", FileItemType.FOLDER, "3")
+    )
     ConnectToOffice10Theme {
-        val mockFiles = listOf(
-            FileUiModel("Document", FileItemType.FILE, "1"),
-            FileUiModel("Room", FileItemType.ROOM, "2"),
-            FileUiModel("Folder", FileItemType.FOLDER, "3")
+        DocumentsScreenContent(
+            filesList = mockFiles,
+            title = "documnets title",
+            isBackEnabled = false,
+            onFileClick = {},
+            onBack = {},
         )
-        DocumentsScreenContent(mockFiles, "documnets title", false)
     }
 }
 
