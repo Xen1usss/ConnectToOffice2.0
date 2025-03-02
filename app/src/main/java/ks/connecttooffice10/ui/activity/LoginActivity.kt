@@ -21,28 +21,49 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import ks.connecttooffice10.ui.theme.ConnectToOffice10Theme
 
+@AndroidEntryPoint
 class LoginActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             ConnectToOffice10Theme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                val scope = rememberCoroutineScope()
+                val snackbarHostState = remember { SnackbarHostState()}
+                val viewModel = hiltViewModel<LoginViewModel>()
+                val message = viewModel.message.value
+                if (message?.isUsed == false) {
+                    message.isUsed = true
+                    scope.launch {
+                        snackbarHostState.showSnackbar(message.text)
+                    }
+                }
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
+                    snackbarHost = {
+                        SnackbarHost(snackbarHostState)
+                    }
+                ) { innerPadding ->
                     LoginScreen(
-                        modifier = Modifier.padding(innerPadding),
-                        context = this
+                        context = this,
+                        viewModel = viewModel
                     )
                 }
             }
@@ -50,17 +71,10 @@ class LoginActivity : ComponentActivity() {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun Preview(modifier: Modifier = Modifier) {
-    LoginScreen(modifier = Modifier, context = androidx.compose.ui.platform.LocalContext.current)
-}
-
 @Composable
 fun LoginScreen(
-    modifier: Modifier = Modifier,
     context: Context,
-    viewModel: LoginViewModel = viewModel()
+    viewModel: LoginViewModel
 ) {
     val portal by viewModel.portal
     val email by viewModel.email
@@ -117,13 +131,13 @@ fun LoginScreen(
 
         Button(
             onClick = {
-                val intent = Intent(context, MainActivity::class.java)
-                context.startActivity(intent)
+                viewModel.onLoginClick()
             },
             modifier = Modifier.fillMaxWidth(),
             enabled = portalError == null && emailError == null && passwordError == null
         ) {
             Text("Login")
         }
+
     }
 }

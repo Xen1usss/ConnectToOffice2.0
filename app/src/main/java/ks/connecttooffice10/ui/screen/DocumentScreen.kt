@@ -30,9 +30,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import ks.connecttooffice10.domain.LoadDocumentsUseCase
-import ks.connecttooffice10.domain.MockLoadDocumentsUseCase
-import ks.connecttooffice10.ui.mapper.FileUiMapper
 import ks.connecttooffice10.ui.model.DocumentsScreenState
 import ks.connecttooffice10.ui.model.FileItemType
 import ks.connecttooffice10.ui.model.FileUiModel
