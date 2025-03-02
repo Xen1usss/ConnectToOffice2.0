@@ -3,7 +3,6 @@ package ks.connecttooffice10.data
 import ks.connecttooffice10.data.model.ApiResponse
 import ks.connecttooffice10.data.model.AuthDto
 import retrofit2.http.Body
-import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Url
 

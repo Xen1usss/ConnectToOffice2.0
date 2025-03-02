@@ -25,11 +25,13 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
@@ -37,6 +39,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import ks.connecttooffice10.ui.theme.ConnectToOffice10Theme
+import ks.connecttooffice10.ui.viewmodel.LoginViewModel
 
 @AndroidEntryPoint
 class LoginActivity : ComponentActivity() {
@@ -53,6 +56,17 @@ class LoginActivity : ComponentActivity() {
                     message.isUsed = true
                     scope.launch {
                         snackbarHostState.showSnackbar(message.text)
+                    }
+                }
+                LaunchedEffect(viewModel.navigateMain.value) {
+                    val value = viewModel.navigateMain.value
+                    if (value == Unit) {
+                        startActivity(
+                            Intent(this@LoginActivity, MainActivity::class.java).apply {
+                                setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP) //fixme
+                            }
+                        )
+                        viewModel.navigateMain.value = null
                     }
                 }
                 Scaffold(

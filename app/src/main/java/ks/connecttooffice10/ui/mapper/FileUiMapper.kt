@@ -1,22 +1,22 @@
 package ks.connecttooffice10.ui.mapper
 
-import ks.connecttooffice10.domain.FileModel
-import ks.connecttooffice10.ui.model.FileUiModel
+import ks.connecttooffice10.domain.model.File
+import ks.connecttooffice10.domain.model.FileType
 import ks.connecttooffice10.ui.model.FileItemType
+import ks.connecttooffice10.ui.model.FileUiModel
 import javax.inject.Inject
 
 class FileUiMapper @Inject constructor(){
 
-    fun toUiModel(fileDomainModel: FileModel): FileUiModel {
+    fun toUiModel(fileDomainModel: File): FileUiModel {
         return FileUiModel(
             fileName = fileDomainModel.name,
-            fileType = when (fileDomainModel.type) {
-                "Document" -> FileItemType.FILE
-                "Folder" -> FileItemType.FOLDER
-                "Room" -> FileItemType.ROOM
-                else -> throw IllegalArgumentException("Unknown file type: ${fileDomainModel.type}")
+            fileType = when (fileDomainModel.fileType) {
+                FileType.FILE -> FileItemType.FILE
+                FileType.FOLDER -> FileItemType.FOLDER
+                FileType.ROOM -> FileItemType.ROOM
             },
-            id = fileDomainModel.id.toString()
+            id = fileDomainModel.id
         )
     }
 }

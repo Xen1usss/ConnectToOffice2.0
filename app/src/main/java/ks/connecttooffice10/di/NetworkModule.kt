@@ -52,3 +52,6 @@ object NetworkModule {
         return authRetrofit.create(AuthApi::class.java)
     }
 }
+// составить модель дто
+// получить джейсон с апи
+// сконвертировать его в котлин модель

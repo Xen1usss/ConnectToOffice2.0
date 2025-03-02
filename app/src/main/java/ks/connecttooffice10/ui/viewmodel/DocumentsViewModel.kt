@@ -7,6 +7,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import ks.connecttooffice10.domain.LoadDocumentsUseCase
+import ks.connecttooffice10.domain.model.File
+import ks.connecttooffice10.domain.model.FileType
 import ks.connecttooffice10.ui.mapper.FileUiMapper
 import ks.connecttooffice10.ui.model.DocumentsScreenState
 import ks.connecttooffice10.ui.model.FileItemType
@@ -25,6 +27,7 @@ class DocumentsViewModel @Inject constructor(
 
     init {
         loadDocuments(null) // Загружаем корневую папку
+
     }
 
     // Загрузка данных для папки

@@ -1,7 +1,6 @@
-package ks.connecttooffice10.ui.activity
+package ks.connecttooffice10.ui.viewmodel
 
 import android.net.Uri
-import android.os.Build
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -43,6 +42,7 @@ class LoginViewModel @Inject constructor(
     private val _message = mutableStateOf<Message?>(null)
     val message: State<Message?> = _message
 
+    val navigateMain = mutableStateOf<Unit?>(null)
 
     init {
         if (BuildConfig.DEBUG) {
@@ -99,7 +99,7 @@ class LoginViewModel @Inject constructor(
     }
 
     private fun navigateMain() {
-
+        navigateMain.value = Unit
 
     }
 

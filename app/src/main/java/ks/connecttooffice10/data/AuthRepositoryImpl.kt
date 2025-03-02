@@ -1,11 +1,8 @@
 package ks.connecttooffice10.data
 
-import android.net.Uri
-import android.util.Log
 import ks.connecttooffice10.data.model.ApiResponse
 import ks.connecttooffice10.data.model.AuthDto
 import java.net.URI
-import java.net.URL
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -39,7 +36,6 @@ class AuthRepositoryImpl @Inject constructor(
     private fun saveToken(response: ApiResponse) {
         token = response.response.token
     }
-
 
     override fun getAuthToken(): String? {
         return token
