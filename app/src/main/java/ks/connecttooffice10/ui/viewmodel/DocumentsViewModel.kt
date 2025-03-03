@@ -1,14 +1,11 @@
 package ks.connecttooffice10.ui.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import ks.connecttooffice10.domain.LoadDocumentsUseCase
-import ks.connecttooffice10.domain.model.File
-import ks.connecttooffice10.domain.model.FileType
 import ks.connecttooffice10.ui.mapper.FileUiMapper
 import ks.connecttooffice10.ui.model.DocumentsScreenState
 import ks.connecttooffice10.ui.model.FileItemType
@@ -23,14 +20,12 @@ class DocumentsViewModel @Inject constructor(
 
     val state: MutableStateFlow<DocumentsScreenState> = MutableStateFlow(DocumentsScreenState.Loading)
 
-    private val navigationStack = mutableListOf<String>() // стек для хранения id пути навигации
+    private val navigationStack = mutableListOf<String>()
 
     init {
-        loadDocuments(null) // Загружаем корневую папку
-
+        loadDocuments(null)
     }
 
-    // Загрузка данных для папки
     private fun loadDocuments(folderId: String?) {
         viewModelScope.launch {
             val documents = loadDocumentsUseCase(folderId).map { mapper.toUiModel(it) }
@@ -40,31 +35,27 @@ class DocumentsViewModel @Inject constructor(
             state.value = DocumentsScreenState.Success(
                 documentsList = documents,
                 title = folderName,
-                isBackEnabled = navigationStack.isNotEmpty() // Кнопка "Назад" активна, если есть куда возвращаться
+                isBackEnabled = navigationStack.isNotEmpty()
             )
         }
     }
 
-    // Переход в папку
     fun navigateToFolder(folderId: String) {
-        navigationStack.add(folderId) // Добавляем папку в стек
-        loadDocuments(folderId) // Загружаем данные для новой папки
+        navigationStack.add(folderId)
+        loadDocuments(folderId)
     }
 
-    // Возврат назад
     fun onBackClicked() {
         if (navigationStack.isNotEmpty()) {
-            navigationStack.removeLast() // Удаляем текущую папку из стека
-            val previousFolderId = navigationStack.lastOrNull() // Получаем ID предыдущей папки
-            loadDocuments(previousFolderId) // Загружаем данные для предыдущей папки
+            navigationStack.removeLast()
+            val previousFolderId = navigationStack.lastOrNull()
+            loadDocuments(previousFolderId)
         }
     }
 
-    // Обработка нажатия на элемент
     fun onFileClicked(file: FileUiModel) {
-        Log.d("Documents","File clicked: ${file.fileName}, ID: ${file.id}")
         if (file.fileType == FileItemType.FOLDER) {
-            navigateToFolder(file.id) // Переход в папку
+            navigateToFolder(file.id)
         }
     }
 }
