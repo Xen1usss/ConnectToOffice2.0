@@ -2,13 +2,15 @@ package ks.connecttooffice10.data
 
 import ks.connecttooffice10.data.model.ApiResponse
 import ks.connecttooffice10.data.model.AuthDto
+import ks.connecttooffice10.di.network.FilesApiProvider
 import java.net.URI
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class AuthRepositoryImpl @Inject constructor(
-    private val authApi: AuthApi
+    private val authApi: AuthApi,
+    private val fileApiProvider: FilesApiProvider
 ) : AuthRepository {
     private var token: String? = null
 
@@ -21,7 +23,7 @@ class AuthRepositoryImpl @Inject constructor(
                 )
             )
             saveToken(response)
-
+            fileApiProvider.initializeWithBaseUrl(domain, token!!) // in single thread !! is safe
             Result.success(Unit)
         } catch (e: Exception) {
             Result.failure(e)

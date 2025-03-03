@@ -1,25 +1,13 @@
 package ks.connecttooffice10.domain
 
+import ks.connecttooffice10.domain.model.File
 import javax.inject.Inject
 
 class MockLoadDocumentsUseCase @Inject constructor() : LoadDocumentsUseCase {
-    override suspend operator fun invoke(folderId: String?): List<FileModel> {
+    override suspend operator fun invoke(folderId: String?): List<File> {
 
         return when (folderId) {
-            null -> listOf( // Корневая папка
-                FileModel("Document1", "Document", 1),
-                FileModel("Folder1", "Folder", 2),
-                FileModel("Room1", "Room", 3)
-            )
-
-            "2" -> listOf( // Папка "Folder1"
-                FileModel("Document2", "Document", 4),
-                FileModel("Folder2", "Folder", 5)
-            )
-
-            "5" -> listOf( // Папка "Folder2"
-                FileModel("Document3", "Document", 6)
-            )
+            null -> emptyList()
 
             else -> emptyList() // Если папка не найдена
 

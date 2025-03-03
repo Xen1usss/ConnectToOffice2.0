@@ -1,12 +1,17 @@
 package ks.connecttooffice10.data
 
+import ks.connecttooffice10.di.network.FilesApiProvider
 import ks.connecttooffice10.domain.model.File
 import ks.connecttooffice10.domain.model.FileType
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class FilesRepositoryImpl @Inject constructor(
-    private val api: FileApi
+    apiProvider: FilesApiProvider
 ) : FilesRepository {
+
+    private val api by lazy { apiProvider.getApi() }
 
     override suspend fun loadFolderContentsById(id: String): List<File> {
         val response = api.getFolder(id)
