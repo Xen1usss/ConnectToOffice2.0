@@ -26,7 +26,6 @@ fun ProfileScreen(context: Context) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        // Аватар
         Box(
             modifier = Modifier
                 .size(100.dp)

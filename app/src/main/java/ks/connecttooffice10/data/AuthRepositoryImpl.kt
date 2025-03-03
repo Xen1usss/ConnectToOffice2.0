@@ -31,7 +31,6 @@ class AuthRepositoryImpl @Inject constructor(
     }
 
     private fun createUrl(domain: String): String {
-        //domain ...com || ...com/
         return URI(domain).resolve(authPath).toString()
     }
 

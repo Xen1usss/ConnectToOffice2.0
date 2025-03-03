@@ -9,13 +9,8 @@ class MockLoadDocumentsUseCase @Inject constructor() : LoadDocumentsUseCase {
         return when (folderId) {
             null -> emptyList()
 
-            else -> emptyList() // Если папка не найдена
+            else -> emptyList()
 
-//        return listOf(
-//            FileModel( "Document", "Document", 1),
-//            FileModel( "Room", "Room", 2),
-//            FileModel( "Folder", "Folder", 3),
-//        )
         }
     }
 }

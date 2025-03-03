@@ -19,7 +19,6 @@ class LoginViewModel @Inject constructor(
     val loginUseCase: LoginUseCase
 ) : ViewModel() {
 
-    // Поля ввода
     private val _portal = mutableStateOf("")
     val portal: State<String> = _portal
 
@@ -29,7 +28,6 @@ class LoginViewModel @Inject constructor(
     private val _password = mutableStateOf("")
     val password: State<String> = _password
 
-    // Ошибки
     private val _portalError = mutableStateOf<String?>(null)
     val portalError: State<String?> = _portalError
 
@@ -109,8 +107,6 @@ class LoginViewModel @Inject constructor(
         )
         return emailPattern.matcher(email).matches()
     }
-
-
 
     private fun isValidPassword(password: String): Boolean {
         return password.length >= 8 && password.any { it.isDigit() } && password.any { it.isLetter() }

@@ -26,7 +26,7 @@ fun BottomNavigationBar(navController: NavController) {
         Screen.Documents,
         Screen.Rooms,
         Screen.Trash,
-        Screen.Profile  // Профиль без индикатора
+        Screen.Profile
     )
 
     NavigationBar {
@@ -39,9 +39,9 @@ fun BottomNavigationBar(navController: NavController) {
             NavigationBarItem(
                 icon = {
                     if (isProfile(screen)) {
-                        Icon(Icons.Default.Person, contentDescription = null)  // Только для профиля
+                        Icon(Icons.Default.Person, contentDescription = null)
                     } else {
-                        Indicator(isSelected)  // Только индикатор для остальных
+                        Indicator(isSelected)
                     }
                 },
                 label = { Text(screen.route) },
@@ -60,7 +60,7 @@ fun BottomNavigationBar(navController: NavController) {
 
 @Composable
 fun Indicator(isSelected: Boolean) {
-    val size = if (isSelected) 10.dp else 12.dp  // Чуть уменьшенная точка
+    val size = if (isSelected) 10.dp else 12.dp
     val shape = if (isSelected) CircleShape else TriangleShape
     Box(
         modifier = Modifier

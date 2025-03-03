@@ -62,7 +62,6 @@ fun SuccessState(
 ) {
     val (documentsList, title, isBackEnabled) = successState
 
-    // Обработка нажатия кнопки "Назад"
     if (isBackEnabled) {
         BackHandler {
             onBackClicked()
@@ -88,7 +87,7 @@ fun DocumentsScreenContent(
 ) {
     Column {
         val navigationIcon = @Composable {
-            IconButton(onClick = { onBack() }) { // Обработка нажатия кнопки "Назад"
+            IconButton(onClick = { onBack() }) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = "Localized description"
@@ -109,7 +108,7 @@ fun DocumentsScreenContent(
         ) {
             DocumentsList(
                 files = filesList,
-                onFileClick = { file -> onFileClick(file) } // передача колбэка
+                onFileClick = { file -> onFileClick(file) }
             )
         }
     }
@@ -118,7 +117,7 @@ fun DocumentsScreenContent(
 @Composable
 fun DocumentsList(
     files: List<FileUiModel>,
-    onFileClick: (FileUiModel) -> Unit // колбэк для обработки нажатия
+    onFileClick: (FileUiModel) -> Unit
 ) {
     LazyColumn(
         modifier = Modifier
@@ -127,7 +126,7 @@ fun DocumentsList(
         items(files) { file ->
             Box(
                 modifier = Modifier
-                    .clickable { onFileClick(file) } // вызов колбэка при нажатии
+                    .clickable { onFileClick(file) }
                     .fillMaxWidth()
             ) {
             FileItem(fileName = file.fileName, fileType = file.fileType)
