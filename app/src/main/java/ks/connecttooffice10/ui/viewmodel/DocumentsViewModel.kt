@@ -35,9 +35,11 @@ class DocumentsViewModel @Inject constructor(
         viewModelScope.launch {
             val documents = loadDocumentsUseCase(folderId).map { mapper.toUiModel(it) }
 
+            val folderName = documents.find { it.id == folderId }?.fileName ?: "Documents"
+
             state.value = DocumentsScreenState.Success(
                 documentsList = documents,
-                title = folderId?.let { "Folder $folderId" } ?: "Documents",
+                title = folderName,
                 isBackEnabled = navigationStack.isNotEmpty() // Кнопка "Назад" активна, если есть куда возвращаться
             )
         }
