@@ -33,7 +33,7 @@ class DocumentsViewModel @Inject constructor(
             val folderName = documents.find { it.id == folderId }?.fileName ?: "Documents"
 
             state.value = DocumentsScreenState.Success(
-                documentsList = documents,
+                documentsList = documents.toList(),
                 title = folderName,
                 isBackEnabled = navigationStack.isNotEmpty()
             )

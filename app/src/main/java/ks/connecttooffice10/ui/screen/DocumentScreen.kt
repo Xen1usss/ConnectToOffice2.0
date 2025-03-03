@@ -45,11 +45,13 @@ fun DocumentsScreen() {
     val onFileClicked: (FileUiModel) -> Unit = { fileModel ->  viewModel.onFileClicked(fileModel)}
     when (val actualState = state.value) {
         DocumentsScreenState.Loading -> LoadingState()
-        is DocumentsScreenState.Success -> SuccessState(
-            actualState,
-            onBackLambdda,
-            onFileClicked
-        )
+        is DocumentsScreenState.Success -> {
+            SuccessState(
+                actualState,
+                onBackLambdda,
+                onFileClicked
+            )
+        }
     }
 }
 
